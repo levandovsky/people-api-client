@@ -1,14 +1,18 @@
-import {useEffect, useState} from "react";
 import "./App.css";
+
+import {useEffect, useState} from "react";
 import {PeopleApi} from "./services/api";
-import {Person} from "./components/Person";
 import {AddPerson} from "./components/AddPerson";
+import {People} from "./components/People";
 
 function App() {
     const [people, setPeople] = useState();
 
     const fetchPeople = async () => {
+        // fetch people from api 
         const p = await PeopleApi.all();
+
+        // save fetched people to local state
         setPeople(p);
     };
 
@@ -16,21 +20,19 @@ function App() {
         setPeople((prevState) => [...prevState, person]);
     };
 
+    const deletePerson = (id) => {
+        setPeople((prevState) => prevState.filter((person) => person._id !== id));
+    };
+
+    // fetch people list on component load
     useEffect(() => {
         fetchPeople();
     }, []);
 
     return (
-        <div className="App">
+        <div className="app">
             <AddPerson onAdded={addPerson} />
-
-            {!people ? (
-                <span>loading...</span>
-            ) : (
-                people.map((person) => (
-                    <Person key={person._id} name={person.name} lastname={person.lastname} age={person.age} />
-                ))
-            )}
+            <People people={people} onDelete={deletePerson} />
         </div>
     );
 }

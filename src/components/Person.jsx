@@ -1,6 +1,6 @@
 import {useState} from "react/cjs/react.development";
 
-export const Person = ({name, lastname, age}) => {
+export const Person = ({name, lastname, age, onDelete}) => {
     const [detailsShown, setDetailsShown] = useState(false);
 
     const toggleDetails = () => {
@@ -12,9 +12,12 @@ export const Person = ({name, lastname, age}) => {
             <div className="fullname">
                 {name} {lastname}
             </div>
+
             <div className="age">{age}</div>
         </div>
     );
+
+    const btnText = detailsShown ? "Hide" : "Show";
 
     return (
         <div className="person">
@@ -23,7 +26,11 @@ export const Person = ({name, lastname, age}) => {
             {detailsShown ? details : null}
 
             <div className="footer">
-                <button onClick={toggleDetails}>Show details</button>
+                <button onClick={toggleDetails}>{btnText} details</button>
+            </div>
+
+            <div className="delete">
+                <button onClick={onDelete}>Delete</button>
             </div>
         </div>
     );
