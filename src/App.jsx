@@ -1,35 +1,34 @@
+import {useEffect, useState} from "react";
 import "./App.css";
+import {PeopleApi} from "./services/api";
 import {Person} from "./components/Person";
+import {AddPerson} from "./components/AddPerson";
 
 function App() {
-    const people = [
-        {
-            name: "John",
-            lastname: "Johnson",
-            age: 16,
-        },
-        {
-            name: "Dave",
-            lastname: "Johnson",
-            age: 30,
-        },
-        {
-            name: "John",
-            lastname: "Johnson",
-            age: 25,
-        },
-        {
-            name: "John",
-            lastname: "Johnson",
-            age: 26,
-        },
-    ];
+    const [people, setPeople] = useState();
 
-    const rendered = people.map((person, id) => (
-        <Person key={id} name={person.name} lastname={person.lastname} age={person.age} />
-    ));
+    const fetchPeople = async () => {
+        const p = await PeopleApi.all();
+        setPeople(p);
+    };
 
-    return <div className="App">{rendered}</div>;
+    useEffect(() => {
+        fetchPeople();
+    }, []);
+
+    return (
+        <div className="App">
+            <AddPerson />
+
+            {!people ? (
+                <span>loading...</span>
+            ) : (
+                people.map((person) => (
+                    <Person key={person._id} name={person.name} lastname={person.lastname} age={person.age} />
+                ))
+            )}
+        </div>
+    );
 }
 
 export default App;
