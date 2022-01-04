@@ -12,13 +12,17 @@ function App() {
         setPeople(p);
     };
 
+    const addPerson = (person) => {
+        setPeople((prevState) => [...prevState, person]);
+    };
+
     useEffect(() => {
         fetchPeople();
     }, []);
 
     return (
         <div className="App">
-            <AddPerson />
+            <AddPerson onAdded={addPerson} />
 
             {!people ? (
                 <span>loading...</span>

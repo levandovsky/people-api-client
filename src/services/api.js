@@ -6,11 +6,14 @@ export class PeopleApi {
     }
 
     static async add(person) {
+        console.log(person);
         if (!person) throw new Error("No argument");
 
         const res = await fetch("http://localhost:8080/people-mongo", {
             method: "POST",
-            type: "application/json",
+            headers: {
+                "Content-Type": "application/json"
+            },
             body: JSON.stringify(person)
         })
 
