@@ -6,9 +6,9 @@ import {People} from "./components/People";
 
 function App() {
     const [people, setPeople] = useState();
-    const img = process.env.PUBLIC_URL + "/img/download.jpeg";
+
     const fetchPeople = async () => {
-        // fetch people from api 
+        // fetch people from api
         const p = await PeopleApi.all();
 
         // save fetched people to local state
@@ -19,8 +19,13 @@ function App() {
         setPeople((prevState) => [...prevState, person]);
     };
 
-    const deletePerson = (id) => {
-        setPeople((prevState) => prevState.filter((person) => person._id !== id));
+    const deletePerson = async (id) => {
+        try {
+            const {deletedPersonId} = await PeopleApi.delete(id);
+            setPeople((prevState) => prevState.filter((person) => person._id !== deletedPersonId));
+        } catch (e) {
+            console.error(e);
+        }
     };
 
     // fetch people list on component load
@@ -30,7 +35,6 @@ function App() {
 
     return (
         <div className="app">
-            <img src={img} alt="dog" />
             <AddPerson onAdded={addPerson} />
             <People people={people} onDelete={deletePerson} />
         </div>
