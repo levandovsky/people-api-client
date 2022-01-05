@@ -3,6 +3,8 @@ import {useEffect, useState} from "react";
 import {PeopleApi} from "./services/api";
 import {AddPerson} from "./components/AddPerson";
 import {People} from "./components/People";
+import {Container} from "./ui/Container";
+import {CardContent, Card, Content} from "./ui/Card";
 
 function App() {
     const [people, setPeople] = useState();
@@ -44,10 +46,17 @@ function App() {
     }, []);
 
     return (
-        <div className="app">
-            <AddPerson onAdded={addPerson} />
+        <Container className="mt-4">
+            <Card className="mb-4">
+                <CardContent>
+                    <Content>
+                        <div>Add New Person</div>
+                        <AddPerson onAdded={addPerson} />
+                    </Content>
+                </CardContent>
+            </Card>
             <People people={people} onDelete={deletePerson} onUpdate={updatePerson} />
-        </div>
+        </Container>
     );
 }
 

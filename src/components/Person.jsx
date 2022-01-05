@@ -1,8 +1,7 @@
 import {useState} from "react";
 import {PeopleApi} from "../services/api";
-import {Input} from "./Input";
 import {PersonForm} from "./PersonForm";
-import {Card} from "./Card";
+import {Card, CardContent, Content} from "../ui/Card";
 
 export const Person = ({personId, person, onDelete, onUpdate}) => {
     const [detailsShown, setDetailsShown] = useState(false);
@@ -24,10 +23,10 @@ export const Person = ({personId, person, onDelete, onUpdate}) => {
     const details = (
         <div className="details">
             <div className="fullname">
-                {name} {lastname}
+                Full name: {name} {lastname}
             </div>
 
-            <div className="age">{age}</div>
+            <div className="age">Age: {age}</div>
 
             <PersonForm person={person} submitHandler={submitHandler} btnText="update" />
         </div>
@@ -54,14 +53,11 @@ export const Person = ({personId, person, onDelete, onUpdate}) => {
     return (
         <div className="mb-3">
             <Card>
-                <div className="card-content">
-                    <div className="content">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.{" "}
-                        <a>@bulmaio</a>.
-                        <br />
-                        <time dateTime="2016-1-1">11:09 PM - 1 Jan 2016</time>
-                    </div>
-                </div>
+                <CardContent>
+                    <Content>
+                        {details}
+                    </Content>
+                </CardContent>
             </Card>
         </div>
     );

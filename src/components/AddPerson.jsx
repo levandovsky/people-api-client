@@ -1,7 +1,7 @@
 import {PeopleApi} from "../services/api";
 import {PersonForm} from "./PersonForm";
 
-export const AddPerson = ({onAdded}) => {
+export const AddPerson = ({onAdded, className}) => {
     const person = {name: "", lastname: "", age: ""};
 
     const submitHandler = async (e) => {
@@ -14,5 +14,5 @@ export const AddPerson = ({onAdded}) => {
         onAdded(added);
     };
 
-    return <PersonForm person={person} submitHandler={submitHandler} btnText="Add" />;
+    return <PersonForm className={className} person={person} submitHandler={submitHandler} btnText="Add" />;
 };

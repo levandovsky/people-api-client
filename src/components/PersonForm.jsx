@@ -1,15 +1,16 @@
+import {Button} from "../ui/Button";
 import {Input} from "./Input";
 
-export const PersonForm = ({person, submitHandler, btnText}) => {
+export const PersonForm = ({person, submitHandler, btnText, className}) => {
     const {name, lastname, age} = person;
 
     return (
-        <form onSubmit={submitHandler}>
+        <form className={className || ""} onSubmit={submitHandler}>
             <Input name="name" defaultValue={name} />
             <Input name="lastname" defaultValue={lastname} />
             <Input name="age" type="number" defaultValue={age} />
 
-            <button type="submit">{btnText}</button>
+            <Button type="submit">{btnText}</Button>
         </form>
     );
 };
