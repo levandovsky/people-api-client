@@ -1,0 +1,1 @@
+export const Button = ({children}) => <button className="button is-primary">{children}</button>
