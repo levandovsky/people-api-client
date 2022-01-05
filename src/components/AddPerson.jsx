@@ -1,24 +1,18 @@
 import {PeopleApi} from "../services/api";
-import {Input} from "./Input";
+import {PersonForm} from "./PersonForm";
 
 export const AddPerson = ({onAdded}) => {
+    const person = {name: "", lastname: "", age: ""};
+
     const submitHandler = async (e) => {
         e.preventDefault();
 
         const form = new FormData(e.target);
         const [name, lastname, age] = form.values();
 
-        const person = await PeopleApi.add({name, lastname, age});
-        onAdded(person);
+        const added = await PeopleApi.add({name, lastname, age});
+        onAdded(added);
     };
 
-    return (
-        <form onSubmit={submitHandler}>
-            <Input type="text" name="name" />
-            <Input type="text" name="lastname" />
-            <Input type="number" name="age" />
-
-            <button type="submit">Add</button>
-        </form>
-    );
+    return <PersonForm person={person} submitHandler={submitHandler} btnText="Add" />;
 };

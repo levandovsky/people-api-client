@@ -28,6 +28,16 @@ function App() {
         }
     };
 
+    const updatePerson = (id, update) => {
+        setPeople((prevState) =>
+            prevState.map((person) => {
+                if (person._id === id) return {...person, ...update};
+
+                return person;
+            })
+        );
+    };
+
     // fetch people list on component load
     useEffect(() => {
         fetchPeople();
@@ -35,9 +45,8 @@ function App() {
 
     return (
         <div className="app">
-            <input defaultValue="test" />
             <AddPerson onAdded={addPerson} />
-            <People people={people} onDelete={deletePerson} />
+            <People people={people} onDelete={deletePerson} onUpdate={updatePerson} />
         </div>
     );
 }
