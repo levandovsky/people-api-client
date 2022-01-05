@@ -1,4 +1,4 @@
-import {useState} from "react/cjs/react.development";
+import {useState} from "react";
 
 export const Person = ({name, lastname, age, onDelete}) => {
     const [detailsShown, setDetailsShown] = useState(false);

@@ -1,5 +1,4 @@
 import "./App.css";
-
 import {useEffect, useState} from "react";
 import {PeopleApi} from "./services/api";
 import {AddPerson} from "./components/AddPerson";
@@ -7,7 +6,7 @@ import {People} from "./components/People";
 
 function App() {
     const [people, setPeople] = useState();
-
+    const img = process.env.PUBLIC_URL + "/img/download.jpeg";
     const fetchPeople = async () => {
         // fetch people from api 
         const p = await PeopleApi.all();
@@ -31,6 +30,7 @@ function App() {
 
     return (
         <div className="app">
+            <img src={img} alt="dog" />
             <AddPerson onAdded={addPerson} />
             <People people={people} onDelete={deletePerson} />
         </div>
