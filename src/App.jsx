@@ -35,6 +35,7 @@ function App() {
 
     return (
         <div className="app">
+            <input defaultValue="test" />
             <AddPerson onAdded={addPerson} />
             <People people={people} onDelete={deletePerson} />
         </div>
