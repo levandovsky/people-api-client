@@ -1,0 +1,1 @@
+export const classnames = (...names) => names.join(" ").trim();

@@ -1,13 +1,16 @@
-import "./App.css";
 import {useEffect, useState} from "react";
-import {PeopleApi} from "./services/api";
-import {AddPerson} from "./components/AddPerson";
+import {Route, Routes, useNavigate} from "react-router-dom";
+import "./App.css";
 import {People} from "./components/People";
+import {Nav} from "./organisms/Navbar";
+import {AddPerson} from "./pages/AddPerson";
+import {Login} from "./pages/Login";
+import {PeopleApi} from "./services/api";
 import {Container} from "./ui/Container";
-import {CardContent, Card, Content} from "./ui/Card";
 
 function App() {
     const [people, setPeople] = useState();
+    const navigate = useNavigate();
 
     const fetchPeople = async () => {
         // fetch people from api
@@ -45,17 +48,18 @@ function App() {
         fetchPeople();
     }, []);
 
+    useEffect(() => {
+        navigate("/");
+    }, [people]);
+
     return (
         <Container className="mt-4">
-            <Card className="mb-4">
-                <CardContent>
-                    <Content>
-                        <div>Add New Person</div>
-                        <AddPerson onAdded={addPerson} />
-                    </Content>
-                </CardContent>
-            </Card>
-            <People people={people} onDelete={deletePerson} onUpdate={updatePerson} />
+            <Nav />
+            <Routes>
+                <Route path="/" element={<People people={people} onDelete={deletePerson} onUpdate={updatePerson} />} />
+                <Route path="/add" element={<AddPerson onAdded={addPerson} />} />
+                <Route path="/login" element={<Login />} />
+            </Routes>
         </Container>
     );
 }
