@@ -1,8 +1,8 @@
-const API_URL = "http://localhost:8080/people-mongo";
+const API_URL = "http://localhost:8080/people";
 
 export class PeopleApi {
-    static async all() {
-        const res = await fetch(API_URL);
+    static async all(token) {
+        const res = await fetch(API_URL, {method: "GET", headers: {authorization: `Bearer ${token}`}});
 
         return res.json();
     }

@@ -1,5 +1,6 @@
-export const Field = ({label, onChange, ...rest}) => {
-    const {name, type, placeholder, defaultValue, max, disabled} = rest;
+export const Field = ({label, ...rest}) => {
+    const {name, type, placeholder, defaultValue} = rest;
+
     return (
         <div className="field">
             <label htmlFor={name}>{label || name}</label>
@@ -11,9 +12,7 @@ export const Field = ({label, onChange, ...rest}) => {
                     name={name}
                     placeholder={placeholder || name}
                     defaultValue={defaultValue}
-                    max={max}
-                    onChange={onChange}
-                    disabled={disabled}
+                    {...rest}
                 />
             </div>
         </div>

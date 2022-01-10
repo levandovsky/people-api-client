@@ -1,15 +1,15 @@
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
-import {useAuth} from "../hooks/useAuth";
 import {Field} from "../organisms/Field";
+import {Auth} from "../services/auth";
 import {Button} from "../ui/Button";
 import {Card, CardContent, CardHeader, CardHeaderTitle, Content} from "../ui/Card";
 
-export const Login = () => {
+export const Register = () => {
     const navigate = useNavigate();
-    const {login, error} = useAuth();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [error, setError] = useState(null);
 
     const onUsernameChange = (e) => {
         setUsername(e.target.value);
@@ -23,19 +23,20 @@ export const Login = () => {
         e.preventDefault();
         if (!username || !password) return;
 
-        const res = await login(username, password);
+        const res = await Auth.register(username, password);
 
         if (res.error) {
+            setError(res.error);
             return;
         }
-
-        navigate("/");
+        setError(null);
+        navigate("/login");
     };
 
     return (
         <Card as="form" onSubmit={handleSubmit}>
             <CardHeader>
-                <CardHeaderTitle>Login</CardHeaderTitle>
+                <CardHeaderTitle>Register</CardHeaderTitle>
             </CardHeader>
 
             <CardContent>
@@ -44,7 +45,7 @@ export const Login = () => {
                     <Field onChange={onPasswordChange} name="password" type="password" required minLength={8} />
 
                     <Button className="is-primary" type="submit" disabled={!username || !password}>
-                        Login
+                        Register
                     </Button>
 
                     <div style={{color: "red"}}>{error}</div>

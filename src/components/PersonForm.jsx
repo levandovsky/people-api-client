@@ -6,6 +6,18 @@ export const PersonForm = ({person, onUpdate, className, disabled}) => {
     const [lastname, setLastname] = useState(person.lastname);
     const [age, setAge] = useState(person.age);
 
+    const changeName = (e) => {
+        setName(e.target.value);
+    };
+
+    const changeLastName = (e) => {
+        setLastname(e.target.value);
+    };
+
+    const changeAge = (e) => {
+        setAge(e.target.value);
+    };
+
     useEffect(() => {
         onUpdate({
             name,
@@ -16,32 +28,9 @@ export const PersonForm = ({person, onUpdate, className, disabled}) => {
 
     return (
         <form className={className || ""}>
-            <Field
-                name="name"
-                defaultValue={name}
-                disabled={disabled}
-                onChange={(e) => {
-                    setName(e.target.value);
-                }}
-            />
-            <Field
-                name="lastname"
-                defaultValue={lastname}
-                disabled={disabled}
-                onChange={(e) => {
-                    setLastname(e.target.value);
-                }}
-            />
-            <Field
-                name="age"
-                type="number"
-                disabled={disabled}
-                defaultValue={age}
-                max="100"
-                onChange={(e) => {
-                    setAge(e.target.value);
-                }}
-            />
+            <Field name="name" defaultValue={name} disabled={disabled} onChange={changeName} />
+            <Field name="lastname" defaultValue={lastname} disabled={disabled} onChange={changeLastName} />
+            <Field name="age" type="number" disabled={disabled} defaultValue={age} max="100" onChange={changeAge} />
         </form>
     );
 };

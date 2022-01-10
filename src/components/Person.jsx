@@ -1,8 +1,7 @@
 import {useState} from "react";
-import {PeopleApi} from "../services/api";
+import {PeopleApi} from "../services/people-api";
 import {PersonForm} from "./PersonForm";
 import {Card, CardContent, CardFooter, CardFooterItem, Content} from "../ui/Card";
-import {Button} from "../ui/Button";
 
 export const Person = ({personId, person, onDelete, onUpdate}) => {
     const [saveEnabled, setSaveEnabled] = useState(false);
