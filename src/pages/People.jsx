@@ -61,7 +61,6 @@ export const People = () => {
     return people.map((person) => (
         <Person
             key={person._id}
-            personId={person._id}
             person={person}
             onDelete={() => {
                 deletePerson(person._id);

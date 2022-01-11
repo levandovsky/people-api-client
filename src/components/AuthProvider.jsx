@@ -3,28 +3,24 @@ import {AuthContext} from "../hooks/useAuth";
 import {Auth} from "../services/auth";
 
 // extract username from jwt
-const getUsername = (token) => {
-    let username = null;
+const decodeToken = (token) => {
+    if (!token) return null;
 
-    if (token) {
-        const tokenPayload = token.split(".")[1];
-        const decodedPayload = atob(tokenPayload);
-        const parsedPayload = JSON.parse(decodedPayload);
-        username = parsedPayload.username;
-    }
+    const [, tokenPayload] = token.split(".");
+    const decodedPayload = atob(tokenPayload);
 
-    return username
-}
+    return JSON.parse(decodedPayload);
+};
 
 export const AuthProvider = ({children}) => {
     const token = sessionStorage.getItem("token");
+    const decoded = decodeToken(token);
 
     const [state, setState] = useState({
         token,
-        username: getUsername(token),
+        username: decoded ? decoded.username : null,
         error: null,
     });
-
 
     const login = async (user, password) => {
         const res = await Auth.login(user, password);
@@ -37,7 +33,7 @@ export const AuthProvider = ({children}) => {
             return {error: res.error};
         }
 
-        setState(({error: null, token: res.token, username: getUsername(res.token)}));
+        setState({error: null, token: res.token, username: decodeToken(res.token).username});
         sessionStorage.setItem("token", res.token);
 
         return {token: res.token};
@@ -47,8 +43,8 @@ export const AuthProvider = ({children}) => {
         setState({
             token: null,
             error: null,
-            username: null
-        })
+            username: null,
+        });
 
         sessionStorage.removeItem("token");
     };

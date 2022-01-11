@@ -3,7 +3,7 @@ import {PeopleApi} from "../services/people-api";
 import {PersonForm} from "./PersonForm";
 import {Card, CardContent, CardFooter, CardFooterItem, Content} from "../ui/Card";
 
-export const Person = ({personId, person, onDelete, onUpdate}) => {
+export const Person = ({person, onDelete, onUpdate}) => {
     const [saveEnabled, setSaveEnabled] = useState(false);
     const {name, lastname, age} = person;
     const [model, setModel] = useState({name, lastname, age});
@@ -43,8 +43,8 @@ export const Person = ({personId, person, onDelete, onUpdate}) => {
                         onClick={async () => {
                             if (!saveEnabled) return;
 
-                            await PeopleApi.update(personId, model);
-                            onUpdate(personId, model);
+                            await PeopleApi.update(person._id, model);
+                            onUpdate(model);
                         }}
                     >
                         Save
