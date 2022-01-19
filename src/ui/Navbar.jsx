@@ -7,7 +7,7 @@ export const Start = ({className, ...rest}) =>
 export const End = ({className, ...rest}) =>
     Element({as: "div", className: classnames("navbar-end", className), ...rest});
 
-export const Item = ({as, className, ...rest}) =>
+export const Item = ({as = "span", className, ...rest}) =>
     Element({as, className: classnames("navbar-item", className), ...rest});
 
 export const Buttons = ({className, ...rest}) =>

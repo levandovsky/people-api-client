@@ -1,0 +1,15 @@
+.btn {
+    border: 1px solid salmon;
+    padding: 3px;
+    background: none;
+    width: 100px;
+}
+
+.btn.small {
+    width: 50px;
+}
+
+.btn.primary {
+    background: red;
+    color: white;
+}
